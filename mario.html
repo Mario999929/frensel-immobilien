@@ -1,0 +1,830 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frensel Immobilien. Immobilienmakler für Schönebeck, Barby und Magdeburg</title>
+<meta name="description" content="Frensel Immobilien, Inhaber Mario Frensel. Seit 1997 Immobilienmakler für Häuser, Wohnungen und Grundstücke zwischen Magdeburg, Schönebeck und Barby. Kostenlose Immobilienbewertung.">
+<!--
+  ENTWURF. Stand 5. Oktober 2026.
+  Alles mit data-platzhalter="1" wird durch echte Inhalte ersetzt:
+  Fotos, Angebote, Kundenstimmen, Zahlen, E-Mail-Adresse.
+  Schriften: im Livebetrieb lokal einbinden, nicht von Google laden.
+  Formular: im Livebetrieb an einen Formulardienst auf den Namen des Kunden anschließen (siehe JS unten).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fichte: #1F4D3A;
+    --moor: #15372A;
+    --bernstein: #D9A441;
+    --bernstein-dunkel: #B9872E;
+    --nebel: #F3F5F2;
+    --weiss: #FFFFFF;
+    --tinte: #16231F;
+    --schiefer: #5C6A64;
+    --linie: #D7DDD9;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "Source Sans 3", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --breite: 1160px;
+    --rand: 20px;
+    --radius: 6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--tinte);
+    background: var(--weiss);
+  }
+
+  h1, h2, h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0 0 0.5em;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: clamp(2.1rem, 4.2vw, 3.1rem); }
+  h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+  h3 { font-size: 1.25rem; }
+  p { margin: 0 0 1em; max-width: 62ch; }
+  a { color: inherit; }
+  img, svg { display: block; max-width: 100%; }
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  [hidden] { display: none !important; }
+
+  .innen {
+    width: min(100% - 2 * var(--rand), var(--breite));
+    margin-inline: auto;
+  }
+
+  .abschnitt { padding: clamp(56px, 8vw, 104px) 0; scroll-margin-top: 72px; }
+  .abschnitt.nebel { background: var(--nebel); }
+  .abschnitt.gruen { background: var(--fichte); color: var(--weiss); }
+
+  .knopf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 1.02rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: 1.2;
+  }
+  .knopf.primaer { background: var(--bernstein); color: var(--tinte); border-color: var(--bernstein); }
+  .knopf.primaer:hover { background: var(--bernstein-dunkel); border-color: var(--bernstein-dunkel); }
+  .knopf.hell { background: transparent; color: var(--weiss); border-color: rgba(255,255,255,.55); }
+  .knopf.hell:hover { border-color: var(--weiss); }
+  .knopf.dunkel { background: var(--fichte); color: var(--weiss); border-color: var(--fichte); }
+  .knopf.dunkel:hover { background: var(--moor); border-color: var(--moor); }
+  .knopf.leise { background: transparent; color: var(--fichte); border-color: var(--linie); }
+  .knopf.leise:hover { border-color: var(--fichte); }
+
+  :focus-visible { outline: 3px solid var(--bernstein); outline-offset: 3px; }
+
+  /* Entwurfshinweis */
+  .entwurf {
+    background: var(--bernstein);
+    color: var(--tinte);
+    font-size: 0.92rem;
+    text-align: center;
+    padding: 8px var(--rand);
+  }
+
+  /* Kopf */
+  .kopf {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--weiss);
+    border-bottom: 1px solid var(--linie);
+  }
+  .kopf .innen {
+    display: flex; align-items: center; gap: 28px;
+    min-height: 72px;
+  }
+  .marke {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.35rem;
+    text-decoration: none;
+    color: var(--fichte);
+    white-space: nowrap;
+  }
+  .marke small { display: block; font-family: var(--sans); font-weight: 400; font-size: 0.78rem; color: var(--schiefer); letter-spacing: 0; }
+  .kopf nav { margin-left: auto; }
+  .kopf nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 26px; }
+  .kopf nav a { text-decoration: none; font-weight: 600; color: var(--tinte); }
+  .kopf nav a:hover { color: var(--fichte); }
+  .kopf .telefon { text-decoration: none; font-weight: 700; color: var(--fichte); white-space: nowrap; }
+  .menue { display: none; margin-left: auto; background: none; border: 2px solid var(--linie); border-radius: var(--radius); padding: 8px 12px; font: inherit; font-weight: 600; cursor: pointer; }
+
+  @media (max-width: 900px) {
+    .kopf nav { display: none; }
+    .kopf nav.offen { display: block; position: absolute; left: 0; right: 0; top: 100%; background: var(--weiss); border-bottom: 1px solid var(--linie); padding: 10px var(--rand) 18px; }
+    .kopf nav.offen ul { flex-direction: column; gap: 6px; }
+    .kopf nav.offen a { display: block; padding: 10px 0; border-bottom: 1px solid var(--linie); }
+    .kopf .telefon { display: none; }
+    .menue { display: inline-block; }
+  }
+
+  /* Bühne */
+  .buehne { display: grid; grid-template-columns: 11fr 9fr; min-height: 560px; }
+  .buehne-text {
+    background: var(--fichte); color: var(--weiss);
+    padding: clamp(48px, 7vw, 96px) clamp(24px, 6vw, 88px);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .buehne-text .ort { margin: 0 0 18px; color: rgba(255,255,255,.78); }
+  .buehne-text h1 { margin-bottom: 20px; }
+  .buehne-text p.lauf { font-size: 1.12rem; color: rgba(255,255,255,.9); max-width: 48ch; }
+  .buehne-text .aktionen { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+  .buehne-text .nummer { margin-top: 30px; font-size: 0.98rem; color: rgba(255,255,255,.8); }
+  .buehne-text .nummer strong { color: var(--weiss); font-size: 1.15rem; }
+  .buehne-bild { position: relative; min-height: 320px; background: #C9D3CC; }
+  @media (max-width: 900px) { .buehne { grid-template-columns: 1fr; } }
+
+  /* Bildplatzhalter */
+  .bild-platz {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    background: linear-gradient(180deg, #DCE4DE 0%, #C3D0C7 100%);
+    color: #4C5F56;
+    overflow: hidden;
+  }
+  .bild-platz svg { width: 56%; height: auto; max-height: 70%; opacity: .55; }
+  .bild-platz span {
+    position: absolute; left: 14px; bottom: 12px;
+    font-size: 0.82rem; background: rgba(255,255,255,.8); padding: 4px 9px; border-radius: 4px;
+  }
+
+  /* Bewertung */
+  .bewertung-kopf { max-width: 60ch; margin-bottom: 36px; }
+  .bewertung-kopf p { color: rgba(255,255,255,.86); font-size: 1.08rem; }
+  .karte {
+    background: var(--weiss); color: var(--tinte);
+    border-radius: 10px;
+    display: grid; grid-template-columns: 300px 1fr;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,.18);
+  }
+  .karte-seite {
+    background: var(--nebel);
+    padding: 34px 30px;
+    border-right: 1px solid var(--linie);
+  }
+  .karte-seite h3 { margin-bottom: 8px; }
+  .karte-seite p { font-size: 0.98rem; color: var(--schiefer); }
+  .fortschritt { margin-top: 26px; }
+  .fortschritt .schritt { font-weight: 600; margin-bottom: 8px; display: block; }
+  .balken { height: 8px; background: var(--linie); border-radius: 99px; overflow: hidden; }
+  .balken i { display: block; height: 100%; width: 12.5%; background: var(--bernstein); border-radius: 99px; transition: width .25s ease; }
+  @media (prefers-reduced-motion: reduce) { .balken i { transition: none; } }
+  .zusagen { list-style: none; padding: 0; margin: 28px 0 0; font-size: 0.95rem; }
+  .zusagen li { padding: 6px 0 6px 26px; position: relative; }
+  .zusagen li::before { content: ""; position: absolute; left: 0; top: 13px; width: 14px; height: 14px; border-radius: 50%; background: var(--fichte); }
+
+  .karte-haupt { padding: 34px clamp(22px, 4vw, 48px); }
+  .karte-haupt form { display: block; }
+  .frage { display: none; }
+  .frage.aktiv { display: block; }
+  .frage h3 { font-size: 1.45rem; margin-bottom: 6px; }
+  .frage .hinweis { color: var(--schiefer); margin-bottom: 22px; }
+
+  .kacheln { display: grid; grid-template-columns: repeat(auto-fit, minmax(136px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .kachel { position: relative; }
+  .kachel input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; cursor: pointer; }
+  .kachel span {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 10px;
+    padding: 18px 16px;
+    border: 2px solid var(--linie); border-radius: var(--radius);
+    font-weight: 600; min-height: 92px;
+    transition: border-color .15s ease, background-color .15s ease;
+  }
+  .kachel svg { width: 30px; height: 30px; stroke: var(--fichte); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .kachel input:hover + span { border-color: var(--fichte); }
+  .kachel input:checked + span { border-color: var(--fichte); background: #EAF1EC; }
+  .kachel input:focus-visible + span { outline: 3px solid var(--bernstein); outline-offset: 2px; }
+
+  .felder { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .feld { display: flex; flex-direction: column; gap: 6px; }
+  .feld.breit { grid-column: 1 / -1; }
+  .feld label { font-weight: 600; font-size: 0.98rem; }
+  .feld input, .feld select, .feld textarea {
+    font: inherit; padding: 12px 14px;
+    border: 2px solid var(--linie); border-radius: var(--radius);
+    background: var(--weiss); color: var(--tinte); width: 100%;
+  }
+  .feld input:focus, .feld select:focus, .feld textarea:focus { border-color: var(--fichte); outline: none; }
+  .feld small { color: var(--schiefer); }
+  .haken { display: flex; gap: 12px; align-items: flex-start; font-size: 0.95rem; margin-bottom: 24px; }
+  .haken input { margin-top: 5px; width: 18px; height: 18px; }
+
+  .steuerung { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-top: 1px solid var(--linie); padding-top: 22px; }
+  .fehler { color: #A23B2A; font-weight: 600; margin: -10px 0 16px; display: none; }
+  .fehler.sichtbar { display: block; }
+
+  .danke { display: none; }
+  .danke.aktiv { display: block; }
+  .danke h3 { font-size: 1.6rem; }
+
+  @media (max-width: 820px) {
+    .karte { grid-template-columns: 1fr; }
+    .karte-seite { border-right: 0; border-bottom: 1px solid var(--linie); padding: 24px 22px; }
+    .zusagen { display: none; }
+    .felder { grid-template-columns: 1fr; }
+    .kachel span { min-height: 76px; padding: 14px 12px; }
+  }
+
+  /* Abschnittsköpfe */
+  .abschnitt-kopf { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+  .abschnitt-kopf p { margin: 0; color: var(--schiefer); }
+
+  /* Angebote */
+  .angebote { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  @media (max-width: 900px) { .angebote { grid-template-columns: 1fr; } }
+  .angebot { background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+  .angebot .bild { position: relative; aspect-ratio: 4 / 3; }
+  .status {
+    position: absolute; top: 12px; left: 12px; z-index: 1;
+    font-size: 0.82rem; font-weight: 700; padding: 4px 10px; border-radius: 4px;
+    background: var(--weiss); color: var(--fichte);
+  }
+  .status.reserviert { background: var(--bernstein); color: var(--tinte); }
+  .status.verkauft { background: var(--tinte); color: var(--weiss); }
+  .angebot .text { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .angebot .ort { color: var(--schiefer); margin: 0; font-size: 0.95rem; }
+  .angebot h3 { margin: 0; font-size: 1.2rem; }
+  .daten { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--schiefer); font-size: 0.95rem; }
+  .preis { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--fichte); margin: 6px 0 0; }
+  .energie { font-size: 0.82rem; color: var(--schiefer); margin: 0; }
+  .angebot .links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 12px; }
+  .angebot .links .knopf { padding: 10px 14px; font-size: 0.95rem; }
+
+  /* Über mich */
+  .ueber { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+  .portraet { position: relative; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; }
+  .ueber h2 { margin-bottom: 20px; }
+  .ueber h3 { font-size: 1.15rem; margin: 26px 0 6px; }
+  .ueber p { max-width: 58ch; }
+  @media (max-width: 820px) { .ueber { grid-template-columns: 1fr; } .portraet { max-width: 380px; } }
+
+  /* Tippgeber */
+  .tipp { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+  .tipp p { color: rgba(255,255,255,.88); font-size: 1.08rem; }
+  .tipp strong { color: var(--weiss); }
+  @media (max-width: 820px) { .tipp { grid-template-columns: 1fr; } }
+
+  /* Stimmen */
+  .stimmen { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 820px) { .stimmen { grid-template-columns: 1fr; } }
+  .stimme { background: var(--weiss); border: 1px solid var(--linie); border-radius: 10px; padding: 28px 30px; }
+  .stimme blockquote { margin: 0; font-family: var(--serif); font-size: 1.2rem; line-height: 1.45; }
+  .stimme blockquote p { max-width: none; }
+  .stimme figcaption { margin-top: 16px; color: var(--schiefer); font-size: 0.95rem; }
+  .stimme figcaption strong { color: var(--tinte); }
+  .quelle { font-size: 0.9rem; color: var(--schiefer); margin-top: 22px; max-width: 70ch; }
+  .platzhalter-marke { display: inline-block; font-size: 0.78rem; background: var(--bernstein); color: var(--tinte); padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; font-weight: 600; }
+
+  /* Verkauft */
+  .verkauft-liste { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--linie); }
+  .verkauft-liste li { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--linie); align-items: baseline; }
+  .verkauft-liste li span:last-child { color: var(--schiefer); font-size: 0.95rem; }
+  @media (max-width: 640px) { .verkauft-liste li { grid-template-columns: 1fr; gap: 2px; } }
+
+  /* Ratgeber */
+  .ratgeber { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 820px) { .ratgeber { grid-template-columns: 1fr; } }
+  .ratgeber a { display: block; text-decoration: none; padding: 24px 26px; border: 1px solid var(--linie); border-radius: 10px; background: var(--weiss); }
+  .ratgeber a:hover { border-color: var(--fichte); }
+  .ratgeber h3 { margin-bottom: 6px; font-size: 1.15rem; color: var(--fichte); }
+  .ratgeber p { margin: 0; color: var(--schiefer); font-size: 0.98rem; }
+
+  /* Kontakt */
+  .kontakt { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 80px); }
+  @media (max-width: 820px) { .kontakt { grid-template-columns: 1fr; } }
+  .kontakt address { font-style: normal; line-height: 1.7; }
+  .kontakt address strong { display: block; font-family: var(--serif); font-size: 1.2rem; margin-bottom: 4px; }
+  .kontakt address a { font-weight: 600; color: var(--fichte); }
+  .kontakt .zeiten { margin-top: 18px; color: var(--schiefer); }
+
+  /* Fuß */
+  footer { background: var(--moor); color: rgba(255,255,255,.82); padding: 40px 0 110px; font-size: 0.95rem; }
+  footer .innen { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: flex-start; }
+  footer ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  footer a { color: var(--weiss); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  @media (min-width: 761px) { footer { padding-bottom: 40px; } }
+
+  /* Mobile Leiste */
+  .leiste { display: none; }
+  @media (max-width: 760px) {
+    .leiste {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+      padding: 10px var(--rand) calc(10px + env(safe-area-inset-bottom));
+      background: var(--weiss); border-top: 1px solid var(--linie);
+    }
+    .leiste .knopf { padding: 12px 10px; font-size: 0.98rem; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="haus-grafik" viewBox="0 0 240 160">
+      <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M20 140 H220"/>
+        <path d="M60 140 V84 L120 40 L180 84 V140"/>
+        <path d="M48 92 L120 36 L192 92"/>
+        <path d="M150 58 V46 H164 V68"/>
+        <path d="M104 140 V104 H136 V140"/>
+        <path d="M74 100 H92 V118 H74 Z"/>
+        <path d="M148 100 H166 V118 H148 Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="entwurf" data-platzhalter="1">Entwurf vom 5. Oktober 2026. Fotos, Angebote, Zahlen und Kundenstimmen sind Platzhalter.</div>
+
+<header class="kopf">
+  <div class="innen">
+    <a class="marke" href="#">Frensel Immobilien<small>Inhaber Mario Frensel, seit 1997</small></a>
+    <button class="menue" type="button" aria-expanded="false" aria-controls="hauptnav">Menü</button>
+    <nav id="hauptnav">
+      <ul>
+        <li><a href="#bewertung">Immobilie verkaufen</a></li>
+        <li><a href="#angebote">Angebote</a></li>
+        <li><a href="#ueber-mich">Über mich</a></li>
+        <li><a href="#tippgeber">Tippgeber</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+    <a class="telefon" href="tel:+491772454871">0177 245 48 71</a>
+  </div>
+</header>
+
+<main>
+
+<section class="buehne">
+  <div class="buehne-text">
+    <p class="ort">Immobilienmakler für Schönebeck, Barby, Calbe und Magdeburg</p>
+    <h1>Ihr Haus verkaufen. Mit einem Makler, der hier seit 1997 zu Hause ist.</h1>
+    <p class="lauf">Mario Frensel, Inhaber. Ein Ansprechpartner vom ersten Gespräch bis zum Notartermin. Für Häuser, Wohnungen und Grundstücke im Salzlandkreis und rund um Magdeburg.</p>
+    <div class="aktionen">
+      <a class="knopf primaer" href="#bewertung">Immobilie kostenlos bewerten lassen</a>
+      <a class="knopf hell" href="tel:+491772454871">Anrufen: 0177 245 48 71</a>
+    </div>
+    <p class="nummer">Termine nach Vereinbarung. Sie erreichen mich direkt, ohne Zentrale.</p>
+  </div>
+  <div class="buehne-bild">
+    <div class="bild-platz" data-platzhalter="1">
+      <svg><use href="#haus-grafik"/></svg>
+      <span>Foto folgt: Objekt oder Landschaft, später Drohnenaufnahme</span>
+    </div>
+  </div>
+</section>
+
+<section id="bewertung" class="abschnitt gruen">
+  <div class="innen">
+    <div class="bewertung-kopf">
+      <h2>Was ist Ihre Immobilie wert?</h2>
+      <p>Acht kurze Fragen, dann ruft Mario Frensel Sie an und bespricht mit Ihnen, was Ihr Haus, Ihre Wohnung oder Ihr Grundstück heute erzielen kann. Kostenlos und unverbindlich.</p>
+    </div>
+
+    <div class="karte">
+      <aside class="karte-seite">
+        <h3>Kostenfreie Bewertung</h3>
+        <p>Ihre Angaben gehen nur an Mario Frensel. Kein Newsletter, keine Weitergabe.</p>
+        <div class="fortschritt">
+          <span class="schritt" id="schritt-anzeige">Schritt 1 von 8</span>
+          <div class="balken" role="progressbar" aria-valuemin="1" aria-valuemax="8" aria-valuenow="1" aria-labelledby="schritt-anzeige"><i id="balken"></i></div>
+        </div>
+        <ul class="zusagen">
+          <li>Einschätzung aus 28 Jahren Marktkenntnis vor Ort</li>
+          <li>Persönlicher Rückruf, kein automatischer Preis</li>
+          <li>Sie entscheiden danach in Ruhe</li>
+        </ul>
+      </aside>
+
+      <div class="karte-haupt">
+        <form id="bewertungsformular" novalidate>
+
+          <fieldset class="frage aktiv" data-schritt="1">
+            <h3>Welche Immobilie möchten Sie bewerten lassen?</h3>
+            <p class="hinweis">Wählen Sie eine Art aus.</p>
+            <div class="kacheln">
+              <label class="kachel"><input type="radio" name="objektart" value="Haus" required><span><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Haus</span></label>
+              <label class="kachel"><input type="radio" name="objektart" value="Wohnung"><span><svg viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v16"/><path d="M16 9h3a1 1 0 0 1 1 1v11"/><path d="M8 8h2M8 12h2M8 16h2M12 8h1M12 12h1"/></svg>Wohnung</span></label>
+              <label class="kachel"><input type="radio" name="objektart" value="Grundstück"><span><svg viewBox="0 0 24 24"><path d="M3 18 9 8l4 6 3-3 5 7Z"/><path d="M3 21h18"/></svg>Grundstück</span></label>
+              <label class="kachel"><input type="radio" name="objektart" value="Gewerbe"><span><svg viewBox="0 0 24 24"><path d="M3 21V9l5-4 5 4v12"/><path d="M13 21V12h8v9"/><path d="M6 12h2M6 16h2M16 15h2"/></svg>Gewerbe</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="2">
+            <h3>Wofür brauchen Sie die Bewertung?</h3>
+            <p class="hinweis">Das hilft, das Gespräch vorzubereiten.</p>
+            <div class="kacheln">
+              <label class="kachel"><input type="radio" name="zweck" value="Verkauf geplant" required><span>Ich möchte verkaufen</span></label>
+              <label class="kachel"><input type="radio" name="zweck" value="Orientierung"><span>Ich will erst einmal wissen, wo ich stehe</span></label>
+              <label class="kachel"><input type="radio" name="zweck" value="Erbschaft oder Trennung"><span>Erbschaft oder Trennung</span></label>
+              <label class="kachel"><input type="radio" name="zweck" value="Vermieten oder verkaufen"><span>Vermieten oder verkaufen, ich bin unsicher</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="3">
+            <h3>Wo liegt die Immobilie?</h3>
+            <p class="hinweis">Ort und Postleitzahl reichen. Die genaue Adresse besprechen wir am Telefon.</p>
+            <div class="felder">
+              <div class="feld"><label for="plz">Postleitzahl</label><input id="plz" name="plz" type="text" inputmode="numeric" pattern="[0-9]{5}" required></div>
+              <div class="feld"><label for="ort">Ort</label><input id="ort" name="ort" type="text" required></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="4">
+            <h3>Wie groß ist die Immobilie?</h3>
+            <p class="hinweis">Ungefähre Angaben genügen.</p>
+            <div class="felder">
+              <div class="feld"><label for="wohnflaeche">Wohn- oder Nutzfläche in m²</label><input id="wohnflaeche" name="wohnflaeche" type="number" min="0" inputmode="numeric"><small>Bei Grundstücken leer lassen</small></div>
+              <div class="feld"><label for="grundstueck">Grundstück in m²</label><input id="grundstueck" name="grundstueck" type="number" min="0" inputmode="numeric"><small>Bei Wohnungen leer lassen</small></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="5">
+            <h3>Wann wurde das Gebäude gebaut?</h3>
+            <p class="hinweis">Bei Grundstücken ohne Gebäude können Sie diesen Schritt überspringen.</p>
+            <div class="kacheln">
+              <label class="kachel"><input type="radio" name="baujahr" value="vor 1950"><span>Vor 1950</span></label>
+              <label class="kachel"><input type="radio" name="baujahr" value="1950 bis 1989"><span>1950 bis 1989</span></label>
+              <label class="kachel"><input type="radio" name="baujahr" value="1990 bis 2009"><span>1990 bis 2009</span></label>
+              <label class="kachel"><input type="radio" name="baujahr" value="ab 2010"><span>Ab 2010</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="6">
+            <h3>In welchem Zustand ist die Immobilie?</h3>
+            <p class="hinweis">Schätzen Sie ehrlich, das macht die Einschätzung genauer.</p>
+            <div class="kacheln">
+              <label class="kachel"><input type="radio" name="zustand" value="Neuwertig" required><span>Neuwertig oder frisch saniert</span></label>
+              <label class="kachel"><input type="radio" name="zustand" value="Gepflegt"><span>Gepflegt, bewohnbar</span></label>
+              <label class="kachel"><input type="radio" name="zustand" value="Renovierungsbedarf"><span>Renovierung nötig</span></label>
+              <label class="kachel"><input type="radio" name="zustand" value="Sanierungsbedarf"><span>Umfassende Sanierung nötig</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="7">
+            <h3>Wann möchten Sie verkaufen?</h3>
+            <p class="hinweis">Auch „noch offen“ ist eine gute Antwort.</p>
+            <div class="kacheln">
+              <label class="kachel"><input type="radio" name="zeitpunkt" value="So bald wie möglich" required><span>So bald wie möglich</span></label>
+              <label class="kachel"><input type="radio" name="zeitpunkt" value="In 3 bis 6 Monaten"><span>In drei bis sechs Monaten</span></label>
+              <label class="kachel"><input type="radio" name="zeitpunkt" value="Später"><span>Später als in sechs Monaten</span></label>
+              <label class="kachel"><input type="radio" name="zeitpunkt" value="Noch offen"><span>Noch offen</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="frage" data-schritt="8">
+            <h3>Wie erreicht Mario Frensel Sie?</h3>
+            <p class="hinweis">Er ruft Sie an und bespricht die Bewertung mit Ihnen.</p>
+            <div class="felder">
+              <div class="feld"><label for="vorname">Vorname</label><input id="vorname" name="vorname" type="text" autocomplete="given-name" required></div>
+              <div class="feld"><label for="nachname">Nachname</label><input id="nachname" name="nachname" type="text" autocomplete="family-name" required></div>
+              <div class="feld"><label for="telefonnr">Telefon</label><input id="telefonnr" name="telefon" type="tel" autocomplete="tel" required></div>
+              <div class="feld"><label for="email">E-Mail (freiwillig)</label><input id="email" name="email" type="email" autocomplete="email"></div>
+              <div class="feld breit"><label for="erreichbar">Wann passt ein Anruf am besten?</label><input id="erreichbar" name="erreichbar" type="text" placeholder="zum Beispiel werktags ab 17 Uhr"></div>
+            </div>
+            <label class="haken"><input type="checkbox" name="datenschutz" required><span>Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert werden.</span></label>
+          </fieldset>
+
+          <p class="fehler" id="fehler">Bitte füllen Sie die markierten Felder aus.</p>
+
+          <div class="steuerung">
+            <button class="knopf leise" type="button" id="zurueck" hidden>Zurück</button>
+            <button class="knopf dunkel" type="button" id="weiter" style="margin-left:auto">Weiter</button>
+            <button class="knopf primaer" type="submit" id="senden" hidden style="margin-left:auto">Anfrage senden</button>
+          </div>
+        </form>
+
+        <div class="danke" id="danke">
+          <h3>Vielen Dank. Ihre Anfrage ist angekommen.</h3>
+          <p>Mario Frensel meldet sich bei Ihnen telefonisch. Wenn es eilt, erreichen Sie ihn direkt unter <a href="tel:+491772454871"><strong>0177 245 48 71</strong></a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="angebote" class="abschnitt nebel">
+  <div class="innen">
+    <div class="abschnitt-kopf">
+      <div>
+        <h2>Aktuelle Angebote</h2>
+        <p>Häuser, Wohnungen und Grundstücke, die ich gerade vermittle.</p>
+      </div>
+      <a class="knopf leise" href="#" data-platzhalter="1">Alle Angebote auf Kleinanzeigen</a>
+    </div>
+
+    <div class="angebote" data-platzhalter="1">
+      <article class="angebot">
+        <div class="bild"><span class="status">Neu</span><div class="bild-platz"><svg><use href="#haus-grafik"/></svg><span>Foto folgt</span></div></div>
+        <div class="text">
+          <p class="ort">39218 Schönebeck, Bad Salzelmen</p>
+          <h3>Einfamilienhaus mit Garten und Garage</h3>
+          <ul class="daten"><li>120 m² Wohnfläche</li><li>605 m² Grundstück</li><li>4 Zimmer</li></ul>
+          <p class="preis">189.000 €</p>
+          <p class="energie">Bedarfsausweis, 138 kWh/(m²·a), Gas, Baujahr 1976, Klasse E</p>
+          <div class="links"><a class="knopf dunkel" href="#kontakt">Exposé anfragen</a><a class="knopf leise" href="#">Auf Kleinanzeigen</a></div>
+        </div>
+      </article>
+      <article class="angebot">
+        <div class="bild"><div class="bild-platz"><svg><use href="#haus-grafik"/></svg><span>Foto folgt</span></div></div>
+        <div class="text">
+          <p class="ort">39240 Calbe (Saale)</p>
+          <h3>Doppelhaushälfte mit Nebengelass</h3>
+          <ul class="daten"><li>95 m² Wohnfläche</li><li>480 m² Grundstück</li><li>4 Zimmer</li></ul>
+          <p class="preis">129.000 €</p>
+          <p class="energie">Verbrauchsausweis, 162 kWh/(m²·a), Öl, Baujahr 1938, Klasse F</p>
+          <div class="links"><a class="knopf dunkel" href="#kontakt">Exposé anfragen</a><a class="knopf leise" href="#">Auf Kleinanzeigen</a></div>
+        </div>
+      </article>
+      <article class="angebot">
+        <div class="bild"><span class="status reserviert">Reserviert</span><div class="bild-platz"><svg><use href="#haus-grafik"/></svg><span>Foto folgt</span></div></div>
+        <div class="text">
+          <p class="ort">39249 Barby, Ortsteil Pömmelte</p>
+          <h3>Bungalow auf großem Grundstück</h3>
+          <ul class="daten"><li>110 m² Wohnfläche</li><li>800 m² Grundstück</li><li>3 Zimmer</li></ul>
+          <p class="preis">165.000 €</p>
+          <p class="energie">Bedarfsausweis, 121 kWh/(m²·a), Gas, Baujahr 1998, Klasse D</p>
+          <div class="links"><a class="knopf dunkel" href="#kontakt">Exposé anfragen</a><a class="knopf leise" href="#">Auf Kleinanzeigen</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="ueber-mich" class="abschnitt">
+  <div class="innen ueber">
+    <div class="portraet">
+      <div class="bild-platz" data-platzhalter="1"><svg viewBox="0 0 240 160" style="width:40%"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="120" cy="60" r="28"/><path d="M60 150c8-34 32-50 60-50s52 16 60 50"/></g></svg><span>Porträtfoto folgt</span></div>
+    </div>
+    <div>
+      <h2>Ein Makler, keine Agentur.</h2>
+      <p>Ich bin Mario Frensel und vermittle seit 1997 Immobilien in Sachsen-Anhalt. Mein Büro ist in Pömmelte bei Barby, mein Gebiet reicht von Schönebeck und Calbe bis nach Magdeburg und ins Jerichower Land. Die meisten Straßen, in denen ich verkaufe, kenne ich seit Jahren.</p>
+
+      <h3>Sie sprechen immer mit mir</h3>
+      <p>Besichtigung, Preisgespräch, Verhandlung, Notartermin: Das mache ich selbst. Niemand reicht Sie weiter, und Sie müssen nichts zweimal erklären.</p>
+
+      <h3>Ich sage Ihnen, was Ihr Haus wirklich wert ist</h3>
+      <p>Ein zu hoher Preis kostet Monate und am Ende Geld. Ich nenne Ihnen den Preis, den der Markt hier gerade hergibt, auch wenn er unter Ihrer Erwartung liegt.</p>
+
+      <h3>Käufer aus der Region</h3>
+      <p>Wer in Schönebeck oder Barby kaufen will, sucht meist schon lange in meinen Angeboten. Viele Objekte verkaufe ich an Interessenten, die ich bereits kenne.</p>
+
+      <p data-platzhalter="1">Rund 300 vermittelte Objekte seit 1997. <em>(Zahl ist ein Platzhalter und wird durch die echte ersetzt.)</em></p>
+    </div>
+  </div>
+</section>
+
+<section id="tippgeber" class="abschnitt gruen">
+  <div class="innen tipp">
+    <div>
+      <h2>Sie kennen ein Haus, das verkauft werden soll?</h2>
+      <p>Das Haus der Nachbarn steht leer, ein Bekannter will sein Grundstück abgeben, eine Wohnung soll den Besitzer wechseln. Geben Sie mir den Tipp. <strong>Wenn ich das Objekt verkaufe, erhalten Sie als Dankeschön 10 Prozent meiner Käuferprovision</strong>, nach notarieller Beurkundung.</p>
+    </div>
+    <a class="knopf hell" href="#kontakt">Tipp weitergeben</a>
+  </div>
+</section>
+
+<section class="abschnitt nebel">
+  <div class="innen">
+    <div class="abschnitt-kopf">
+      <div>
+        <h2>Das sagen Kunden</h2>
+        <p>Verkäufer und Käufer, die ich in den letzten Jahren begleitet habe.</p>
+      </div>
+    </div>
+    <div class="stimmen" data-platzhalter="1">
+      <figure class="stimme">
+        <span class="platzhalter-marke">Platzhalter</span>
+        <blockquote><p>Hier steht die erste echte Kundenstimme. Zwei bis vier Sätze, in den Worten des Kunden, mit seiner Zustimmung.</p></blockquote>
+        <figcaption><strong>Vor- und Nachname</strong>, Verkauf eines Einfamilienhauses in Schönebeck</figcaption>
+      </figure>
+      <figure class="stimme">
+        <span class="platzhalter-marke">Platzhalter</span>
+        <blockquote><p>Hier steht die zweite echte Kundenstimme. Wenn die Bewertung bei Google steht, wird sie von dort übernommen und verlinkt.</p></blockquote>
+        <figcaption><strong>Vor- und Nachname</strong>, Kauf einer Doppelhaushälfte in Calbe</figcaption>
+      </figure>
+    </div>
+    <p class="quelle">Die Kundenstimmen stammen von Verkäufern und Käufern, die Frensel Immobilien beauftragt haben, und werden mit ihrem Einverständnis veröffentlicht.</p>
+  </div>
+</section>
+
+<section class="abschnitt">
+  <div class="innen">
+    <div class="abschnitt-kopf">
+      <div>
+        <h2>Zuletzt verkauft</h2>
+        <p>Eine Auswahl aus den vergangenen Jahren.</p>
+      </div>
+    </div>
+    <ul class="verkauft-liste" data-platzhalter="1">
+      <li><span>Reihenendhaus</span><span>39218 Schönebeck (Elbe)</span><span>verkauft</span></li>
+      <li><span>Doppelhaushälfte</span><span>39218 Schönebeck, Felgeleben</span><span>verkauft</span></li>
+      <li><span>Einfamilienhaus mit Pool und Sauna</span><span>39167 Wellen</span><span>verkauft</span></li>
+      <li><span>Einfamilienhaus</span><span>39221 Großmühlingen</span><span>verkauft</span></li>
+      <li><span>Wohn- und Geschäftshaus</span><span>39120 Magdeburg</span><span>verkauft</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="abschnitt nebel">
+  <div class="innen">
+    <div class="abschnitt-kopf">
+      <div>
+        <h2>Ratgeber</h2>
+        <p>Was ich Eigentümern und Käufern im Gespräch meistens erkläre.</p>
+      </div>
+    </div>
+    <div class="ratgeber">
+      <a href="#"><h3>Was Sie von einem guten Makler erwarten können</h3><p>Zeit für die Prüfung, eine ehrliche Preiseinschätzung und ein Internetauftritt, der kein Abklatsch einer Datenbank ist.</p></a>
+      <a href="#"><h3>Warum der Alleinauftrag für Sie wichtig ist</h3><p>Nur beim Alleinauftrag steht Ihnen die volle Maklerleistung zu. Und Ihr Haus wird nicht „zu Tode angeboten“.</p></a>
+      <a href="#"><h3>Soll ich mein Haus vor dem Verkauf herrichten?</h3><p>Eindeutig ja. Saubere Räume, gutes Licht, gepflegter Garten. Die Investition zahlt sich beim Preis aus.</p></a>
+      <a href="#"><h3>Welche Kosten beim Kauf anfallen</h3><p>Notar, Grunderwerbsteuer, Maklergebühr, Finanzierung. Rechnen Sie mit 9 bis 13 Prozent Nebenkosten.</p></a>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="abschnitt">
+  <div class="innen kontakt">
+    <div>
+      <h2>Kontakt</h2>
+      <address>
+        <strong>Frensel Immobilien</strong>
+        Inhaber Mario Frensel<br>
+        Neue Siedlung 7<br>
+        39249 Barby (Elbe), Ortsteil Pömmelte<br><br>
+        Mobil <a href="tel:+491772454871">0177 245 48 71</a><br>
+        Büro <a href="tel:+493929825956">039298 25956</a><br>
+        <span data-platzhalter="1">E-Mail-Adresse folgt</span>
+      </address>
+      <p class="zeiten">Termine nach Vereinbarung. Am schnellsten erreichen Sie mich telefonisch.</p>
+    </div>
+    <form id="kontaktformular" novalidate>
+      <div class="felder">
+        <div class="feld"><label for="k-name">Name</label><input id="k-name" name="name" type="text" required></div>
+        <div class="feld"><label for="k-telefon">Telefon</label><input id="k-telefon" name="telefon" type="tel" required></div>
+        <div class="feld breit"><label for="k-anliegen">Anliegen</label>
+          <select id="k-anliegen" name="anliegen">
+            <option>Ich möchte verkaufen</option>
+            <option>Ich interessiere mich für ein Angebot</option>
+            <option>Ich habe einen Tipp</option>
+            <option>Etwas anderes</option>
+          </select>
+        </div>
+        <div class="feld breit"><label for="k-nachricht">Nachricht</label><textarea id="k-nachricht" name="nachricht" rows="5"></textarea></div>
+      </div>
+      <label class="haken"><input type="checkbox" name="datenschutz" required><span>Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert werden.</span></label>
+      <button class="knopf dunkel" type="submit">Nachricht senden</button>
+      <p class="danke" id="kontakt-danke" style="margin-top:16px">Danke, Ihre Nachricht ist angekommen. Mario Frensel meldet sich bei Ihnen.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="innen">
+    <div>
+      <div>© 2026 Frensel Immobilien, Inhaber Mario Frensel</div>
+      <div>Erlaubnis nach § 34c GewO, Gewerbeamt Barby <span data-platzhalter="1">(Angabe wird geprüft)</span></div>
+    </div>
+    <ul>
+      <li><a href="#impressum">Impressum</a></li>
+      <li><a href="#datenschutz">Datenschutz</a></li>
+      <li><a href="https://www.facebook.com/Frensel-Immobilien-1690328964523442/" rel="noopener">Facebook</a></li>
+      <li><a href="https://www.instagram.com/frenselmario" rel="noopener">Instagram</a></li>
+      <li><a href="#" data-platzhalter="1">Kleinanzeigen</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="leiste">
+  <a class="knopf dunkel" href="tel:+491772454871">Anrufen</a>
+  <a class="knopf primaer" href="#bewertung">Bewerten lassen</a>
+</div>
+
+<script>
+(function () {
+  // Menü auf dem Handy
+  var menue = document.querySelector('.menue');
+  var nav = document.getElementById('hauptnav');
+  menue.addEventListener('click', function () {
+    var offen = nav.classList.toggle('offen');
+    menue.setAttribute('aria-expanded', offen ? 'true' : 'false');
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { nav.classList.remove('offen'); menue.setAttribute('aria-expanded', 'false'); }
+  });
+
+  // Bewertungsformular in acht Schritten
+  var form = document.getElementById('bewertungsformular');
+  var fragen = Array.prototype.slice.call(form.querySelectorAll('.frage'));
+  var zurueck = document.getElementById('zurueck');
+  var weiter = document.getElementById('weiter');
+  var senden = document.getElementById('senden');
+  var fehler = document.getElementById('fehler');
+  var anzeige = document.getElementById('schritt-anzeige');
+  var balken = document.getElementById('balken');
+  var balkenBox = balken.parentNode;
+  var aktuell = 0;
+
+  function zeige(n) {
+    aktuell = n;
+    fragen.forEach(function (f, i) { f.classList.toggle('aktiv', i === n); });
+    anzeige.textContent = 'Schritt ' + (n + 1) + ' von ' + fragen.length;
+    balken.style.width = ((n + 1) / fragen.length * 100) + '%';
+    balkenBox.setAttribute('aria-valuenow', n + 1);
+    zurueck.hidden = n === 0;
+    weiter.hidden = n === fragen.length - 1;
+    senden.hidden = n !== fragen.length - 1;
+    fehler.classList.remove('sichtbar');
+    var kopf = fragen[n].querySelector('h3');
+    if (kopf) { kopf.setAttribute('tabindex', '-1'); kopf.focus({ preventScroll: true }); }
+  }
+
+  function gueltig(frage) {
+    var ok = true;
+    var radios = frage.querySelectorAll('input[type=radio][required]');
+    if (radios.length) {
+      var name = radios[0].name;
+      if (!frage.querySelector('input[name="' + name + '"]:checked')) ok = false;
+    }
+    frage.querySelectorAll('input:not([type=radio]), select, textarea').forEach(function (el) {
+      if (el.required && !el.checkValidity()) { ok = false; el.style.borderColor = '#A23B2A'; }
+      else if (el.value && !el.checkValidity()) { ok = false; el.style.borderColor = '#A23B2A'; }
+      else { el.style.borderColor = ''; }
+    });
+    return ok;
+  }
+
+  weiter.addEventListener('click', function () {
+    if (!gueltig(fragen[aktuell])) { fehler.classList.add('sichtbar'); return; }
+    zeige(aktuell + 1);
+  });
+  zurueck.addEventListener('click', function () { zeige(aktuell - 1); });
+
+  // Kachel gewählt: nach kurzer Pause weiter
+  form.addEventListener('change', function (e) {
+    if (e.target.type === 'radio' && aktuell < fragen.length - 1) {
+      setTimeout(function () { if (gueltig(fragen[aktuell])) zeige(aktuell + 1); }, 220);
+    }
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!gueltig(fragen[aktuell])) { fehler.classList.add('sichtbar'); return; }
+    // ENTWURF: Hier die Anfrage an den Formulardienst des Kunden senden, zum Beispiel per fetch() an dessen Endpunkt.
+    // Die Felder stehen in new FormData(form).
+    form.hidden = true;
+    var danke = document.getElementById('danke');
+    danke.classList.add('aktiv');
+    anzeige.textContent = 'Abgeschickt';
+    balken.style.width = '100%';
+    document.getElementById('bewertung').scrollIntoView();
+    var dankeKopf = danke.querySelector('h3');
+    dankeKopf.setAttribute('tabindex', '-1'); dankeKopf.focus({ preventScroll: true });
+  });
+
+  // Kontaktformular
+  var kontakt = document.getElementById('kontaktformular');
+  kontakt.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = true;
+    kontakt.querySelectorAll('[required]').forEach(function (el) {
+      if (!el.checkValidity()) { ok = false; if (el.type !== 'checkbox') el.style.borderColor = '#A23B2A'; }
+      else if (el.type !== 'checkbox') el.style.borderColor = '';
+    });
+    if (!ok) return;
+    // ENTWURF: Hier ebenfalls an den Formulardienst senden.
+    kontakt.querySelectorAll('.felder, .haken, button').forEach(function (el) { el.hidden = true; });
+    document.getElementById('kontakt-danke').classList.add('aktiv');
+  });
+})();
+</script>
+</body>
+</html>
