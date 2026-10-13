@@ -68,11 +68,17 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .marke small { display: block; font-family: var(--sans); font-weight: 400; font-size: 0.8rem; color: var(--schiefer); letter-spacing: 0; margin-top: 3px; }
 .kopf nav { margin-left: auto; }
 .kopf nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; }
+.marke img { display: block; height: 46px; width: auto; }
+.marke .logo-klein { display: none; }
+@media (max-width: 640px) { .marke .logo-gross { display: none; } .marke .logo-klein { display: block; height: 40px; } }
 .kopf nav a { text-decoration: none; font-weight: 600; color: var(--tinte); }
 .kopf nav a:hover { color: var(--fichte); }
 .kopf nav .nur-handy { display: none; }
 .kopf .nummern { text-decoration: none; font-weight: 700; color: var(--fichte); white-space: nowrap; font-size: 0.95rem; line-height: 1.3; text-align: right; }
 .kopf .nummern a { text-decoration: none; display: block; }
+.widerruf-oben { display: inline-flex; align-items: center; gap: 7px; font-size: 0.86rem; font-weight: 700; color: var(--bernstein-dunkel); background: #FBF3E2; border: 1.5px solid var(--bernstein); border-radius: 999px; padding: 6px 13px; text-decoration: none; white-space: nowrap; margin-left: 4px; }
+.widerruf-oben::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--bernstein); }
+.widerruf-oben:hover { background: var(--bernstein); color: var(--tinte); }
 .menue { display: none; margin-left: auto; background: none; border: 2px solid var(--linie); border-radius: var(--radius); padding: 8px 12px; font: inherit; font-weight: 600; cursor: pointer; }
 @media (max-width: 960px) {
   .kopf nav { display: none; }
@@ -82,15 +88,49 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
   .kopf nav.offen .nur-handy { display: block; }
   .kopf nav.offen .nur-handy a { color: var(--fichte); }
   .kopf .nummern { display: none; }
+  .widerruf-oben { display: none; }
   .menue { display: inline-block; }
   .marke { font-size: 1.2rem; }
   .marke small { font-size: 0.74rem; white-space: normal; }
 }
 
 /* Kopfbild in voller Breite */
-.kopfbild { position: relative; background: #C9D3CC; aspect-ratio: 21 / 9; max-height: 620px; overflow: hidden; }
+.kopfbild { position: relative; background: var(--moor); aspect-ratio: 21 / 9; max-height: 620px; overflow: hidden; }
 @media (max-width: 760px) { .kopfbild { aspect-ratio: 4 / 3; } }
-.kopfbild img { width: 100%; height: 100%; object-fit: cover; }
+.kopfbild img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; z-index: 0; transition: opacity 1s ease; animation: kopf-atmen 14s ease-in-out infinite alternate; }
+.kopfbild img.vorher { opacity: 1; z-index: 1; transition: none; }
+.kopfbild img.aktiv { opacity: 1; z-index: 2; }
+@keyframes kopf-atmen { from { transform: scale(1); } to { transform: scale(1.08); } }
+.kopf-bu { position: absolute; left: var(--rand); bottom: 18px; z-index: 5; background: rgba(22,35,31,.72); color: var(--weiss); font-size: 0.86rem; font-weight: 600; padding: 7px 12px; border-radius: 6px; text-decoration: none; backdrop-filter: blur(3px); }
+.kopf-bu:hover { background: rgba(22,35,31,.9); }
+@media (prefers-reduced-motion: reduce) { .kopfbild img { transition: none; animation: none; } }
+/* Kopf: grünes Band rechts, Logo, Mario Frensel freigestellt */
+.kopfbild::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%; z-index: 4; pointer-events: none; background: linear-gradient(to top, rgba(14,32,24,.58) 0%, rgba(14,32,24,.22) 55%, rgba(14,32,24,0) 100%); }
+.kopf-band { position: absolute; z-index: 3; top: -12%; bottom: -12%; right: -14%; width: 40%; border-radius: 50%; background: linear-gradient(160deg, #2A6149 0%, var(--fichte) 45%, var(--moor) 100%); box-shadow: -10px 0 40px rgba(0,0,0,.18); }
+.kopfbild .kopf-logo { position: absolute; inset: auto; z-index: 5; top: 22px; right: 28px; width: clamp(110px, 16vw, 215px); height: auto; opacity: 1; object-fit: contain; transition: none; animation: none; filter: drop-shadow(0 6px 18px rgba(0,0,0,.25)); }
+.kopf-mario { position: absolute; z-index: 3; right: 14%; bottom: 0; height: 64%; display: block; }
+.kopfbild .kopf-mario img { position: static; inset: auto; width: auto; height: 100%; object-fit: contain; opacity: 1; transition: none; animation: none; filter: saturate(.9) contrast(.96) brightness(.97) drop-shadow(-6px 8px 14px rgba(0,0,0,.35)); }
+@media (max-width: 760px) {
+  .kopf-band { display: none; }
+  .kopfbild .kopf-logo { top: 10px; right: 10px; width: 96px; }
+  .kopf-mario { right: 4%; height: 56%; }
+}
+/* Variante B: Bewertungs-Karte im Kopfbild */
+.kopf-karte { position: absolute; z-index: 5; left: var(--rand); top: 50%; transform: translateY(-50%); width: min(400px, 42%); background: var(--weiss); color: var(--tinte); border-radius: 12px; padding: 24px 24px 20px; box-shadow: 0 18px 50px rgba(0,0,0,.28); }
+.kopf-karte h2 { font-size: 1.45rem; margin: 0 0 6px; }
+.kopf-karte p { font-size: 0.92rem; color: var(--schiefer); margin: 0 0 16px; }
+.kopf-kacheln { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kopf-kacheln button { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 14px; border: 2px solid var(--linie); border-radius: var(--radius); background: var(--weiss); font: inherit; font-weight: 600; color: var(--tinte); cursor: pointer; text-align: left; }
+.kopf-kacheln button:hover { border-color: var(--fichte); background: var(--nebel); }
+.kopf-kacheln svg { width: 26px; height: 26px; stroke: var(--fichte); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 900px) {
+  .kopfbild.mit-karte { aspect-ratio: auto; max-height: none; padding-bottom: 0; }
+  .kopfbild.mit-karte > img { bottom: auto; height: auto; aspect-ratio: 4 / 3; }
+  .kopfbild.mit-karte::before { content: ""; display: block; aspect-ratio: 4 / 3; }
+  .kopf-karte { position: static; transform: none; width: auto; border-radius: 0; box-shadow: none; padding: 20px var(--rand); }
+  .kopfbild.mit-karte .kopf-bu { bottom: auto; top: 12px; }
+  .kopfbild.mit-karte .kopf-mario { bottom: auto; top: 25.5vw; height: 49.5vw; }
+}
 .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #C9D3CC; }
 .bildzeile { position: absolute; left: 14px; bottom: 12px; font-size: 0.82rem; background: rgba(255,255,255,.9); color: var(--tinte); padding: 4px 9px; border-radius: 4px; }
 
@@ -100,16 +140,27 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 @media (max-width: 900px) { .einstieg .innen { grid-template-columns: 1fr; } }
 .einstieg h1 { margin-bottom: 14px; }
 .einstieg .lauf { font-size: 1.12rem; color: rgba(255,255,255,.9); max-width: 52ch; }
-.einstieg .umkreis { color: rgba(255,255,255,.82); max-width: 52ch; }
+.einstieg .umkreis { color: rgba(255,255,255,.92); max-width: 52ch; border-left: 3px solid var(--bernstein); padding: 4px 0 4px 16px; margin: 18px 0 0; }
+.einstieg .umkreis strong { color: var(--bernstein); font-weight: 700; }
 .einstieg .aktionen { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
 .einstieg .seite { border-left: 1px solid rgba(255,255,255,.25); padding-left: clamp(20px, 3vw, 40px); }
 @media (max-width: 900px) { .einstieg .seite { border-left: 0; padding-left: 0; border-top: 1px solid rgba(255,255,255,.25); padding-top: 20px; } }
 .einstieg .seite strong { display: block; font-family: var(--serif); font-size: 1.15rem; margin-bottom: 10px; }
 .einstieg .seite p { color: rgba(255,255,255,.85); font-size: 0.98rem; max-width: none; }
 .nummern-liste { list-style: none; padding: 0; margin: 0 0 16px; }
-.nummern-liste li { display: flex; gap: 10px; align-items: baseline; margin-bottom: 4px; }
-.nummern-liste span { color: rgba(255,255,255,.7); font-size: 0.9rem; min-width: 46px; }
-.nummern-liste a { color: var(--weiss); text-decoration: none; font-weight: 700; font-size: 1.15rem; }
+.nummern-liste li { margin-bottom: 6px; }
+.nummern-liste a { display: inline-flex; align-items: center; gap: 10px; color: var(--weiss); text-decoration: none; font-weight: 700; font-size: 1.15rem; padding: 4px 0; }
+.nummern-liste a:hover { color: var(--bernstein); }
+.nummern-liste span { color: rgba(255,255,255,.7); font-size: 0.9rem; font-weight: 400; min-width: 42px; }
+.tel-symbol { width: 1.15em; height: 1.15em; flex: 0 0 auto; vertical-align: -0.2em; margin-right: 0.45em; color: var(--bernstein); }
+.nummern-liste .tel-symbol, .tel-zeile .tel-symbol { margin-right: 0; }
+.knopf .tel-symbol { color: currentColor; margin-right: 0.5em; }
+.tel-zeile { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; color: var(--tinte); margin: 2px 0; }
+.tel-zeile:hover { color: var(--fichte); }
+.tel-zeile + .tel-zeile { margin-top: 2px; }
+address .tel-zeile { display: flex; }
+.kopf nav .nur-handy a { display: flex; align-items: center; gap: 8px; }
+.kopf nav .tel-symbol { margin-right: 0; }
 .hero-google { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.35); border-radius: 8px; color: var(--weiss); text-decoration: none; font-size: 0.98rem; }
 .hero-google:hover { border-color: var(--weiss); }
 .hero-google strong { font-size: 1.15rem; }
@@ -276,6 +327,8 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .antwort strong { display: block; color: var(--fichte); margin-bottom: 2px; }
 .antwort p { margin: 0; max-width: none; }
 .quelle { font-size: 0.9rem; color: var(--schiefer); margin-top: 22px; max-width: 70ch; }
+.stimmen-fuss { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; margin-top: 22px; }
+.stimmen-fuss .quelle { margin: 0; flex: 1 1 320px; }
 
 /* Verkauft (Startseite) */
 .refs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px; }
@@ -376,3 +429,35 @@ footer a:hover { text-decoration: underline; }
 .pfad { font-size: 0.92rem; color: var(--schiefer); margin: 18px 0 0; }
 .pfad a { color: var(--fichte); }
 .platzhalter-marke { display: inline-block; font-size: 0.78rem; background: var(--bernstein); color: var(--tinte); padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; font-weight: 600; }
+
+/* Widerrufsformular */
+.linie-leer { border-bottom: 1px solid var(--schiefer); height: 30px; margin: 0 0 14px; }
+.feldname { margin: 0 0 2px; font-size: 0.95rem; color: var(--schiefer); }
+.nur-druck { display: none; }
+@media print {
+  .kopf, footer, .leiste, .oben-leiste, .widerruf-oben, .pfad, .knopf, .lupe, .menue { display: none !important; }
+  body { font-size: 11pt; color: #000; background: #fff; }
+  a { color: #000; text-decoration: none; }
+  .nur-druck { display: block; }
+  /* Exposé */
+  .druck-kopf { border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 6px 0; margin: 0 0 16px; font-size: 10pt; }
+  .objekt-kopf { padding-top: 0; }
+  .objekt-kopf .preis { font-size: 16pt; margin-bottom: 10px; }
+  .galerie { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-auto-rows: auto; gap: 6px; margin-bottom: 18px; }
+  .galerie a, .galerie a.versteckt, .galerie a:first-child { display: block; grid-row: auto; grid-column: auto; aspect-ratio: 4 / 3; border-radius: 0; break-inside: avoid; }
+  .galerie .mehr-bilder { display: none; }
+  .objekt { display: block; }
+  .objekt h2 { font-size: 13pt; margin: 14px 0 4px; break-after: avoid; }
+  .objekt p { margin: 0 0 6px; }
+  .objekt-seite { position: static; background: none; border: 1px solid #000; border-radius: 0; padding: 12px 14px; margin-top: 18px; break-inside: avoid; }
+  .objekt-seite .preis { font-size: 13pt; }
+  .provisionstext { font-size: 10pt; }
+  main > .abschnitt { display: none; }
+}
+
+/* Widerruf-Link oben am Handy (am Rechner steht er in der Kopfzeile) */
+.oben-leiste { display: none; }
+@media (max-width: 960px) {
+  .oben-leiste { display: block; background: #FBF3E2; border-bottom: 1px solid var(--bernstein); font-size: 0.86rem; text-align: center; padding: 7px var(--rand); }
+  .oben-leiste a { color: var(--bernstein-dunkel); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+}
