@@ -327,6 +327,9 @@ address .tel-zeile { display: flex; }
 .antwort strong { display: block; color: var(--fichte); margin-bottom: 2px; }
 .antwort p { margin: 0; max-width: none; }
 .quelle { font-size: 0.9rem; color: var(--schiefer); margin-top: 22px; max-width: 70ch; }
+.hinweis-kasten { border: 2px solid var(--bernstein); border-radius: var(--radius); padding: 14px 18px; margin: 22px 0; background: #FBF3E2; }
+.hinweis-kasten h3 { margin-top: 0; }
+.hinweis-kasten p { margin-bottom: 0; }
 .stimmen-fuss { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 32px; margin-top: 22px; }
 .stimmen-fuss .quelle { margin: 0; flex: 1 1 320px; }
 
