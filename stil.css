@@ -56,6 +56,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .knopf.leise { background: transparent; color: var(--fichte); border-color: var(--linie); }
 .knopf.leise:hover { border-color: var(--fichte); }
 :focus-visible { outline: 3px solid var(--bernstein); outline-offset: 3px; }
+[tabindex="-1"]:focus, [tabindex="-1"]:focus-visible { outline: none; }
 
 /* Entwurfshinweis */
 .entwurf { background: var(--bernstein); color: var(--tinte); font-size: 0.92rem; text-align: center; padding: 8px var(--rand); }
@@ -198,6 +199,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 
 /* Über mich */
 .ueber { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+.ueber.ohne-bild { grid-template-columns: 1fr; max-width: 760px; }
 .portraet { position: relative; aspect-ratio: 4 / 5; border-radius: 10px; overflow: hidden; }
 .ueber h2 { margin-bottom: 20px; }
 .ueber h3 { font-size: 1.15rem; margin: 26px 0 6px; }

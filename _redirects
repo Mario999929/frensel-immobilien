@@ -1,0 +1,16 @@
+# Alte Adressen der bisherigen Website (IONOS) auf die neue Seite umleiten.
+# Reihenfolge wichtig: die genauen Regeln zuerst, die allgemeinen danach.
+
+/wohnimmobilien/06456-arnstein/*   /arnstein.html     301
+/wohnimmobilien/06456-arnstein     /arnstein.html     301
+/wohnimmobilien/magdeburg/*        /cracau.html       301
+/wohnimmobilien/magdeburg          /cracau.html       301
+/wohnimmobilien/*                  /                  301
+/wohnimmobilien                    /                  301
+/gewerbeimmobilien/*               /                  301
+/gewerbeimmobilien                 /                  301
+/referenzen/*                      /referenzen.html   301
+/kontakt/*                         /                  301
+/kontakt                           /                  301
+/impressum-datenschutz/*           /                  301
+/impressum-datenschutz             /                  301
