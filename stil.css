@@ -68,9 +68,11 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .marke small { display: block; font-family: var(--sans); font-weight: 400; font-size: 0.8rem; color: var(--schiefer); letter-spacing: 0; margin-top: 3px; }
 .kopf nav { margin-left: auto; }
 .kopf nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 24px; }
-.marke img { display: block; height: 46px; width: auto; }
-.marke .logo-klein { display: none; }
-@media (max-width: 640px) { .marke .logo-gross { display: none; } .marke .logo-klein { display: block; height: 40px; } }
+.marke { display: flex; align-items: center; gap: 12px; }
+.marke-zeichen { display: block; width: 44px; height: 44px; flex: 0 0 auto; }
+.marke-text { display: block; }
+.marke small { font-size: 0.82rem; font-weight: 600; color: var(--schiefer); }
+.marke small b { color: var(--bernstein-dunkel); font-weight: 700; }
 .kopf nav a { text-decoration: none; font-weight: 600; color: var(--tinte); }
 .kopf nav a:hover { color: var(--fichte); }
 .kopf nav .nur-handy { display: none; }
@@ -80,7 +82,10 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .widerruf-oben::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--bernstein); }
 .widerruf-oben:hover { background: var(--bernstein); color: var(--tinte); }
 .menue { display: none; margin-left: auto; background: none; border: 2px solid var(--linie); border-radius: var(--radius); padding: 8px 12px; font: inherit; font-weight: 600; cursor: pointer; }
-@media (max-width: 960px) {
+.kopf nav ul { gap: 18px; }
+.kopf nav a { white-space: nowrap; }
+/* Menü-Knopf statt Leiste, sobald Name, Widerruf und Navigation nicht mehr nebeneinander passen */
+@media (max-width: 1180px) {
   .kopf nav { display: none; }
   .kopf nav.offen { display: block; position: absolute; left: 0; right: 0; top: 100%; background: var(--weiss); border-bottom: 1px solid var(--linie); padding: 10px var(--rand) 18px; }
   .kopf nav.offen ul { flex-direction: column; gap: 6px; }
@@ -88,10 +93,21 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
   .kopf nav.offen .nur-handy { display: block; }
   .kopf nav.offen .nur-handy a { color: var(--fichte); }
   .kopf .nummern { display: none; }
-  .widerruf-oben { display: none; }
   .menue { display: inline-block; }
-  .marke { font-size: 1.2rem; }
-  .marke small { font-size: 0.74rem; white-space: normal; }
+}
+@media (max-width: 960px) {
+  .widerruf-oben { display: none; }
+}
+@media (max-width: 640px) {
+  .kopf .innen { gap: 14px; }
+  .marke { gap: 9px; font-size: 1.15rem; }
+  .marke-zeichen { width: 38px; height: 38px; }
+  .marke-inhaber { display: none; }
+  .marke small { font-size: 0.78rem; margin-top: 2px; }
+}
+@media (max-width: 380px) {
+  .marke { font-size: 1.06rem; }
+  .marke-zeichen { width: 34px; height: 34px; }
 }
 
 /* Kopfbild in voller Breite */
@@ -246,6 +262,7 @@ address .tel-zeile { display: flex; }
 .angebot.aufruf { background: var(--fichte); color: var(--weiss); border-color: var(--fichte); justify-content: center; padding: 32px 28px; gap: 16px; }
 .angebot.aufruf h3 { color: var(--weiss); font-size: 1.45rem; margin: 0; }
 .angebot.aufruf p { color: rgba(255,255,255,.88); margin: 0; }
+.angebot.aufruf p.motto { color: var(--bernstein); font-weight: 700; font-size: 1.12rem; }
 .angebot.aufruf .knopf { align-self: flex-start; }
 
 /* Über mich */
@@ -327,6 +344,14 @@ address .tel-zeile { display: flex; }
 .antwort strong { display: block; color: var(--fichte); margin-bottom: 2px; }
 .antwort p { margin: 0; max-width: none; }
 .quelle { font-size: 0.9rem; color: var(--schiefer); margin-top: 22px; max-width: 70ch; }
+.widerruf-schnell { border: 2px solid var(--bernstein); border-radius: 10px; background: #FBF3E2; padding: 22px 24px 8px; margin: 22px 0 8px; }
+.widerruf-schnell h2 { font-size: 1.35rem; margin: 0 0 8px; }
+.widerruf-schnell .felder { margin: 16px 0 18px; }
+.widerruf-knoepfe { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+.widerruf-text { width: 100%; font: inherit; font-size: 0.92rem; padding: 12px; border: 2px solid var(--linie); border-radius: var(--radius); background: var(--weiss); margin-bottom: 12px; }
+.widerruf-klein { font-size: 0.9rem; color: var(--schiefer); }
+@media (max-width: 640px) { .widerruf-schnell .felder { grid-template-columns: 1fr; } .widerruf-schnell { padding: 18px 16px 6px; } }
+@media print { .widerruf-schnell { display: none !important; } }
 .hinweis-kasten { border: 2px solid var(--bernstein); border-radius: var(--radius); padding: 14px 18px; margin: 22px 0; background: #FBF3E2; }
 .hinweis-kasten h3 { margin-top: 0; }
 .hinweis-kasten p { margin-bottom: 0; }

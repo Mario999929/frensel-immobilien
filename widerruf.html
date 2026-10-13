@@ -39,7 +39,7 @@
 <div class="oben-leiste"><a href="widerruf.html">Vertrag widerrufen</a></div>
 <header class="kopf">
   <div class="innen">
-    <a class="marke" href="index.html"><img class="logo-gross" src="bilder/logo-quer.svg" alt="Frensel Immobilien, Inhaber Mario Frensel, seit 1997 in Sachsen-Anhalt" width="551" height="96"><img class="logo-klein" src="bilder/logo-kurz.svg" alt="Frensel Immobilien" width="400" height="96"></a>
+    <a class="marke" href="index.html"><img class="marke-zeichen" src="bilder/favicon.svg" alt="" width="44" height="44"><span class="marke-text">Frensel Immobilien<small><span class="marke-inhaber">Inhaber Mario Frensel · </span><b>seit 1997</b> in Sachsen-Anhalt</small></span></a>
     <a class="widerruf-oben" href="widerruf.html">Vertrag widerrufen</a>
     <button class="menue" type="button" aria-expanded="false" aria-controls="hauptnav">Menü</button>
     <nav id="hauptnav">
@@ -65,9 +65,29 @@
     <h1 style="margin-top:12px">Widerrufsbelehrung des Anbieters Frensel Immobilien</h1>
     <p>Gilt nicht für Wohnraummiete in Deutschland.</p>
 
+    <div class="widerruf-schnell" id="per-email">
+      <h2>Widerruf direkt per E-Mail</h2>
+      <p>Felder ausfüllen und auf „E-Mail an Mario Frensel öffnen“ klicken. Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht an <a href="mailto:marfrensel@aol.com">marfrensel@aol.com</a>; Sie müssen sie dort nur noch absenden. Die gesendete E-Mail ist Ihr Nachweis.</p>
+      <form id="widerruf-mail" novalidate>
+        <div class="felder">
+          <div class="feld"><label for="w-name">Ihr Name</label><input id="w-name" type="text" autocomplete="name" required></div>
+          <div class="feld"><label for="w-datum">Vertrag geschlossen am <small>(falls bekannt)</small></label><input id="w-datum" type="date"></div>
+          <div class="feld breit"><label for="w-anschrift">Ihre Anschrift</label><input id="w-anschrift" type="text" autocomplete="street-address" required></div>
+          <div class="feld breit"><label for="w-vertrag">Welcher Vertrag?</label><input id="w-vertrag" type="text" placeholder="zum Beispiel Exposé Einfamilienhaus in Arnstein" required></div>
+        </div>
+        <p class="fehler" id="w-fehler">Bitte Name, Anschrift und den Vertrag angeben.</p>
+        <div class="widerruf-knoepfe">
+          <button class="knopf primaer" type="submit">E-Mail an Mario Frensel öffnen</button>
+          <button class="knopf leise" type="button" id="w-kopieren">Text kopieren</button>
+        </div>
+        <textarea id="w-text" class="widerruf-text" rows="9" readonly hidden></textarea>
+        <p class="widerruf-klein">Kein E-Mail-Programm auf diesem Gerät? „Text kopieren“ und in eine E-Mail an <a href="mailto:marfrensel@aol.com">marfrensel@aol.com</a> einfügen. Ein Brief an Frensel Immobilien, Neue Siedlung 7, 39249 Barby, genügt ebenso. Für die Frist zählt, dass Sie den Widerruf rechtzeitig absenden.</p>
+      </form>
+    </div>
+
     <h2 style="font-size:1.4rem;margin-top:32px">Widerrufsrecht für Verbraucher</h2>
     <p>Sie haben das Recht, binnen vierzehn Tagen ohne Angabe von Gründen diesen Vertrag zu widerrufen. Die Widerrufsfrist beträgt vierzehn Tage ab dem Tag des Vertragsabschlusses.</p>
-    <p>Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Frensel Immobilien, Inh. Mario Frensel, Neue Siedlung 7, 39249 Barby, Mobil: 0177 245 48 71, E-Mail: marfrensel@aol.com) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.</p>
+    <p>Um Ihr Widerrufsrecht auszuüben, müssen Sie uns (Frensel Immobilien, Inh. Mario Frensel, Neue Siedlung 7, 39249 Barby, Mobil: 0177 245 48 71, E-Mail: <a href="mailto:marfrensel@aol.com">marfrensel@aol.com</a>) mittels einer eindeutigen Erklärung (z. B. ein mit der Post versandter Brief, Telefax oder E-Mail) über Ihren Entschluss, diesen Vertrag zu widerrufen, informieren. Sie können dafür das beigefügte Muster-Widerrufsformular verwenden, das jedoch nicht vorgeschrieben ist. Zur Wahrung der Widerrufsfrist reicht es aus, dass Sie die Mitteilung über die Ausübung des Widerrufsrechts vor Ablauf der Widerrufsfrist absenden.</p>
 
     <h2 style="font-size:1.4rem;margin-top:32px">Folgen des Widerrufs</h2>
     <p>Wenn Sie diesen Vertrag widerrufen, haben wir Ihnen alle Zahlungen, die wir von Ihnen erhalten haben, einschließlich der Lieferkosten (mit Ausnahme der zusätzlichen Kosten, die sich daraus ergeben, dass Sie eine andere Art der Lieferung als die von uns angebotene, günstigste Standardlieferung gewählt haben), unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über Ihren Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das Sie bei der ursprünglichen Transaktion eingesetzt haben, es sei denn, mit Ihnen wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden Ihnen wegen dieser Rückzahlung Entgelte berechnet.</p>
@@ -80,7 +100,7 @@
     <h2 style="font-size:1.4rem;margin-top:40px">Muster-Widerrufsformular</h2>
     <p>(Wenn Sie den Vertrag widerrufen wollen, dann füllen Sie dieses Formular aus und senden Sie es zurück.)</p>
     <div style="border:1px solid var(--linie);border-radius:10px;padding:22px 26px;margin-top:16px;background:var(--nebel)">
-      <p>An Frensel Immobilien, Inh. Mario Frensel, Neue Siedlung 7, 39249 Barby, E-Mail: marfrensel@aol.com</p>
+      <p>An Frensel Immobilien, Inh. Mario Frensel, Neue Siedlung 7, 39249 Barby, E-Mail: <a href="mailto:marfrensel@aol.com">marfrensel@aol.com</a></p>
       <p>Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über den Kauf der folgenden Waren (*)/die Erbringung der folgenden Dienstleistung (*)</p>
       <div class="linie-leer"></div>
       <p class="feldname">Bestellt am (*)/erhalten am (*)</p><div class="linie-leer"></div>
@@ -142,5 +162,50 @@
 })();
 </script>
 
+<script>
+(function () {
+  // Widerruf per E-Mail: baut die Nachricht aus den Feldern und öffnet das E-Mail-Programm
+  var f = document.getElementById('widerruf-mail');
+  if (!f) return;
+  var feh = document.getElementById('w-fehler');
+  var feld = function (id) { return document.getElementById(id); };
+  function wert(id) { return feld(id).value.trim(); }
+  function pruefen() {
+    var gut = true;
+    ['w-name', 'w-anschrift', 'w-vertrag'].forEach(function (id) {
+      var leer = !wert(id);
+      feld(id).style.borderColor = leer ? '#A23B2A' : '';
+      if (leer) gut = false;
+    });
+    feh.classList.toggle('sichtbar', !gut);
+    return gut;
+  }
+  function nachricht() {
+    var d = wert('w-datum');
+    var datum = d ? new Date(d + 'T12:00:00').toLocaleDateString('de-DE') : '';
+    return 'An Frensel Immobilien, Inh. Mario Frensel, Neue Siedlung 7, 39249 Barby\n\n' +
+      'Hiermit widerrufe ich den von mir abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung: ' + wert('w-vertrag') +
+      (datum ? '\nVertrag geschlossen am: ' + datum : '') +
+      '\n\nName: ' + wert('w-name') + '\nAnschrift: ' + wert('w-anschrift') +
+      '\nDatum: ' + new Date().toLocaleDateString('de-DE');
+  }
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!pruefen()) return;
+    window.location.href = 'mailto:marfrensel@aol.com?subject=' + encodeURIComponent('Widerruf meines Maklervertrags') + '&body=' + encodeURIComponent(nachricht());
+  });
+  feld('w-kopieren').addEventListener('click', function () {
+    if (!pruefen()) return;
+    var t = nachricht(), knopf = this, feldText = feld('w-text');
+    feldText.value = 'An: marfrensel@aol.com\nBetreff: Widerruf meines Maklervertrags\n\n' + t;
+    feldText.hidden = false;
+    feldText.select();
+    var fertig = function () { knopf.textContent = 'Kopiert'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(feldText.value).then(fertig, function () { document.execCommand('copy'); fertig(); });
+    } else { document.execCommand('copy'); fertig(); }
+  });
+})();
+</script>
 </body>
 </html>
