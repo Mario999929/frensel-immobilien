@@ -489,3 +489,44 @@ footer a:hover { text-decoration: underline; }
   .oben-leiste { display: block; background: #FBF3E2; border-bottom: 1px solid var(--bernstein); font-size: 0.86rem; text-align: center; padding: 7px var(--rand); }
   .oben-leiste a { color: var(--bernstein-dunkel); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 }
+
+/* Mario als Medaillon im grünen Band (Kopfbild-Variante „mit-medaillon“) */
+.kopfbild.mit-medaillon { --achse: clamp(80px, 11vw, 160px); --logo-b: clamp(110px, 15vw, 200px); --med-b: clamp(130px, 19vw, 260px); }
+.kopfbild.mit-medaillon .kopf-logo { width: var(--logo-b); right: calc(var(--achse) - var(--logo-b) / 2); top: clamp(14px, 2vw, 26px); }
+.kopf-medaillon { position: absolute; z-index: 5; margin: 0; width: var(--med-b); right: calc(var(--achse) - var(--med-b) / 2); top: calc(clamp(14px, 2vw, 26px) + var(--logo-b) + clamp(10px, 1.6vw, 22px)); }
+.kopf-medaillon picture { display: block; aspect-ratio: 1; border-radius: 50%; overflow: hidden; border: 3px solid var(--bernstein); box-shadow: 0 0 0 5px rgba(217,164,65,.18), 0 14px 34px rgba(0,0,0,.38); background: var(--fichte); }
+.kopfbild .kopf-medaillon img { position: static; inset: auto; display: block; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: none; animation: none; }
+.kopf-medaillon figcaption { position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%); white-space: nowrap; background: var(--bernstein); color: var(--moor); font-weight: 700; font-size: clamp(0.72rem, 1.05vw, 0.9rem); letter-spacing: .02em; padding: 3px 12px; border-radius: 999px; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+
+/* Hausfotos enden unter dem Band statt am rechten Rand: Die Hausmitte rückt nach links in den sichtbaren Teil */
+.kopfbild.mit-medaillon img.kopf-foto { width: 83%; right: auto; }
+@media (max-width: 760px) {
+  /* Handy: grünes Band schmaler; Logo und Medaillon eng übereinander, als Gruppe mittig im Band (dort ist die Ellipse am breitesten) */
+  .kopfbild.mit-medaillon { --lb: clamp(68px, 19vw, 136px); --mb: clamp(90px, 25.5vw, 180px); --abst: 6px; --gruppe: calc(var(--lb) + var(--abst) + var(--mb) + 10px); }
+  .kopfbild.mit-medaillon .kopf-band { display: block; width: 64%; right: -30%; top: -14%; bottom: -14%; }
+  .kopfbild.mit-medaillon img.kopf-foto { width: 79%; }
+  .kopfbild.mit-medaillon .kopf-logo { width: var(--lb); right: calc(17% - var(--lb) / 2); top: calc(50% - var(--gruppe) / 2); }
+  .kopf-medaillon { width: var(--mb); right: calc(17% - var(--mb) / 2); top: calc(50% - var(--gruppe) / 2 + var(--lb) + var(--abst)); bottom: auto; }
+  .kopf-medaillon picture { border-width: 2px; box-shadow: 0 0 0 3px rgba(217,164,65,.18), 0 8px 20px rgba(0,0,0,.35); }
+  .kopf-medaillon figcaption { font-size: 0.66rem; padding: 2px 9px; bottom: -9px; }
+  /* Bildunterschrift links endet vor dem Band, notfalls zweizeilig */
+  .kopfbild.mit-medaillon .kopf-bu { max-width: calc(64% - var(--rand) - 8px); line-height: 1.3; }
+}
+
+/* Google-Sterne oben im Kopfbild: Milchglas, groß */
+.kopf-sterne { position: absolute; z-index: 6; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 12px; row-gap: 5px; align-items: center;
+  padding: 13px 22px 13px 18px; border-radius: 16px; text-decoration: none; color: var(--weiss); line-height: 1; white-space: nowrap;
+  font-size: clamp(0.92rem, 1.45vw, 1.2rem);
+  background: rgba(14,34,26,.40); -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255,255,255,.30); box-shadow: 0 10px 30px rgba(0,0,0,.22); transition: background .2s ease; }
+.kopf-sterne:hover { background: rgba(14,34,26,.55); }
+.kopf-sterne strong { grid-row: 1 / span 2; font-family: var(--serif); font-weight: 600; font-size: 2.3em; color: var(--weiss); letter-spacing: -.01em; }
+.kopf-sterne .sterne { gap: 3px; }
+.kopf-sterne .sterne svg { width: 1.5em; height: 1.5em; fill: var(--bernstein); filter: drop-shadow(0 1px 2px rgba(0,0,0,.35)); }
+.kopf-sterne .sterne .teil svg:first-child { fill: rgba(255,255,255,.35); }
+.kopf-sterne .kopf-sterne-text { color: rgba(255,255,255,.92); font-weight: 600; letter-spacing: .01em; }
+.kopfbild.mit-medaillon .kopf-sterne { left: var(--rand); top: clamp(14px, 2vw, 26px); }
+@media (max-width: 760px) {
+  .kopf-sterne { font-size: 0.72rem; padding: 8px 12px 8px 10px; column-gap: 8px; row-gap: 3px; border-radius: 11px; }
+  .kopfbild.mit-medaillon .kopf-sterne { left: 10px; top: 10px; }
+}
