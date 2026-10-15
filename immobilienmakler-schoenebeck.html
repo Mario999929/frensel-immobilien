@@ -123,7 +123,7 @@
       </div>
     </div>
     <div class="ref-karten">
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-salzelmen-1988">
       <div class="bild"><img class="foto" src="bilder/verkauft/salzelmen-1988.jpg" alt="Verkauft: Einfamilienhaus mit zwei Garagen, 39218 Schönebeck, Bad Salzelmen" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck, Bad Salzelmen</p>
@@ -138,7 +138,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-bungalow-gewerbe">
       <div class="bild"><img class="foto" src="bilder/verkauft/bungalow-gewerbe.jpg" alt="Verkauft: Einfamilienhaus im Bungalowstil mit Gewerbefläche, 39218 Schönebeck (Elbe)" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck (Elbe)</p>
@@ -153,7 +153,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-schoenebeck-1976">
       <div class="bild"><img class="foto" src="bilder/verkauft/schoenebeck-1976.jpg" alt="Verkauft: Einfamilienhaus mit Wintergarten, 39218 Schönebeck, Bad Salzelmen" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck, Bad Salzelmen</p>
@@ -168,7 +168,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-schoenebeck-dhh">
       <div class="bild"><img class="foto" src="bilder/verkauft/schoenebeck-dhh.jpg" alt="Verkauft: Doppelhaushälfte, 39218 Schönebeck, Felgeleben" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck, Felgeleben</p>
@@ -183,7 +183,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-salzelmen-70">
       <div class="bild"><img class="foto" src="bilder/verkauft/salzelmen-70.jpg" alt="Verkauft: Einfamilienhaus, 39218 Schönebeck, Bad Salzelmen" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck, Bad Salzelmen</p>
@@ -198,7 +198,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-schoenebeck-reihenendhaus">
       <div class="bild"><img class="foto" src="bilder/verkauft/schoenebeck-reihenendhaus.jpg" alt="Verkauft: Reihenendhaus mit Wintergarten, 39218 Schönebeck (Elbe)" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck (Elbe)</p>
@@ -213,7 +213,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-salzelmen-1940">
       <div class="bild"><img class="foto" src="bilder/verkauft/salzelmen-1940.jpg" alt="Verkauft: Einfamilienhaus mit Balkon, 39218 Schönebeck, Bad Salzelmen" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck, Bad Salzelmen</p>
@@ -228,7 +228,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-schoenebeck-bungalow">
       <div class="bild"><img class="foto" src="bilder/verkauft/schoenebeck-bungalow.jpg" alt="Verkauft: Bungalow, 39218 Schönebeck (Elbe)" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39218 Schönebeck (Elbe)</p>
@@ -327,6 +327,16 @@
     return fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: daten })
       .then(function (r) { if (!r.ok) throw new Error('Status ' + r.status); });
   };
+  // Sprung von der Karte zu einem verkauften Haus: Kurzexposé gleich aufklappen
+  function sprungAuf() {
+    if (location.hash.indexOf('#v-') !== 0) return;
+    var ziel = document.getElementById(location.hash.slice(1));
+    var d = ziel && ziel.querySelector('details');
+    if (d) d.open = true;
+  }
+  window.addEventListener('hashchange', sprungAuf);
+  sprungAuf();
+
   window.formularFehler = function (el) {
     el.textContent = 'Das Senden hat nicht geklappt. Bitte rufen Sie an: 0177 245 48 71 oder 039298 25956.';
     el.classList.add('sichtbar');

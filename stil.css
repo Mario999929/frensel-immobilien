@@ -592,3 +592,12 @@ footer a:hover { text-decoration: underline; }
 .karte-hinweis { font-size: 11px; fill: var(--schiefer); }
 @media (max-width: 600px) { .karte-ort, .karte-legende text, .karte-flussname { font-size: 17px; } .karte-hinweis { font-size: 14px; } }
 .karte-klapp[open] .karte-zu, .karte-klapp:not([open]) .karte-auf { display: none; }
+
+/* ===== Karte: Punkte führen zum verkauften Haus ===== */
+.karte-link { cursor: pointer; outline: none; }
+.karte-treffer { fill: transparent; }
+.karte-link:hover .karte-punkt.aktiv, .karte-link:focus-visible .karte-punkt.aktiv { fill: var(--bernstein); stroke: var(--moor); }
+.karte-link:hover .karte-punkt.leise, .karte-link:focus-visible .karte-punkt.leise { fill: var(--fichte); }
+.karte-tipp { font-size: 0.92rem; color: var(--schiefer); margin: 10px 0 0; }
+.ref-karte { scroll-margin-top: 96px; }
+.ref-karte:target { outline: 3px solid var(--bernstein); outline-offset: 3px; }

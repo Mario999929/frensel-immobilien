@@ -123,7 +123,7 @@
       </div>
     </div>
     <div class="ref-karten">
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-gerwisch">
       <div class="bild"><img class="foto" src="bilder/verkauft/gerwisch.jpg" alt="Verkauft: Einfamilienhaus mit Kamin, 39175 Gerwisch" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39175 Gerwisch</p>
@@ -138,7 +138,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-moeser">
       <div class="bild"><img class="foto" src="bilder/verkauft/moeser.jpg" alt="Verkauft: Fachwerkhaus mit Garage und Teich, 39291 Möser" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39291 Möser</p>
@@ -153,7 +153,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-gommern">
       <div class="bild"><img class="foto" src="bilder/verkauft/gommern.jpg" alt="Verkauft: Einfamilienhaus mit Pool, 39245 bei Gommern" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39245 bei Gommern</p>
@@ -168,7 +168,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-moeckern">
       <div class="bild"><img class="foto" src="bilder/verkauft/moeckern.jpg" alt="Verkauft: Einfamilienhaus mit großem Grundstück und drei Garagen, 39291 Möckern" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39291 Möckern</p>
@@ -183,7 +183,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-wahlitz">
       <div class="bild"><img class="foto" src="bilder/verkauft/wahlitz.jpg" alt="Verkauft: Einfamilienhaus mit Wintergarten, 39175 Wahlitz" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39175 Wahlitz</p>
@@ -198,7 +198,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-burg">
       <div class="bild"><img class="foto" src="bilder/verkauft/burg.jpg" alt="Verkauft: Einfamilienhaus mit Pool, 39288 Burg" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39288 Burg</p>
@@ -213,7 +213,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-gommern-1934">
       <div class="bild"><img class="foto" src="bilder/verkauft/gommern-1934.jpg" alt="Verkauft: Einfamilienhaus mit Stallungen und Garten, 39245 Gommern" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39245 Gommern</p>
@@ -228,7 +228,7 @@
         </div>
       </details>
     </article>
-    <article class="ref-karte">
+    <article class="ref-karte" id="v-ziepel">
       <div class="bild"><img class="foto" src="bilder/verkauft/ziepel.jpg" alt="Verkauft: Einfamilienhaus mit Nebengelass, 39291 Ziepel" loading="lazy"><span class="status">Verkauft</span></div>
       <div class="text">
         <p class="ort">39291 Ziepel</p>
@@ -327,6 +327,16 @@
     return fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: daten })
       .then(function (r) { if (!r.ok) throw new Error('Status ' + r.status); });
   };
+  // Sprung von der Karte zu einem verkauften Haus: Kurzexposé gleich aufklappen
+  function sprungAuf() {
+    if (location.hash.indexOf('#v-') !== 0) return;
+    var ziel = document.getElementById(location.hash.slice(1));
+    var d = ziel && ziel.querySelector('details');
+    if (d) d.open = true;
+  }
+  window.addEventListener('hashchange', sprungAuf);
+  sprungAuf();
+
   window.formularFehler = function (el) {
     el.textContent = 'Das Senden hat nicht geklappt. Bitte rufen Sie an: 0177 245 48 71 oder 039298 25956.';
     el.classList.add('sichtbar');

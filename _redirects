@@ -1,3 +1,8 @@
+# Arbeitsdateien (Generator, Daten, Rohfotos, Anleitung) liegen im Repo, gehören aber nicht auf die Website.
+/_quelle/*                          /404.html          404!
+/eingang/*                         /404.html          404!
+/CLAUDE.md                         /404.html          404!
+
 # Alte Adressen der bisherigen Website (IONOS) auf die neue Seite umleiten.
 # Reihenfolge wichtig: die genauen Regeln zuerst, die allgemeinen danach.
 

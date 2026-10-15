@@ -114,6 +114,16 @@
     return fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: daten })
       .then(function (r) { if (!r.ok) throw new Error('Status ' + r.status); });
   };
+  // Sprung von der Karte zu einem verkauften Haus: Kurzexposé gleich aufklappen
+  function sprungAuf() {
+    if (location.hash.indexOf('#v-') !== 0) return;
+    var ziel = document.getElementById(location.hash.slice(1));
+    var d = ziel && ziel.querySelector('details');
+    if (d) d.open = true;
+  }
+  window.addEventListener('hashchange', sprungAuf);
+  sprungAuf();
+
   window.formularFehler = function (el) {
     el.textContent = 'Das Senden hat nicht geklappt. Bitte rufen Sie an: 0177 245 48 71 oder 039298 25956.';
     el.classList.add('sichtbar');
